@@ -1,255 +1,159 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
+
 <title>Ohid AI - Free Fire UID Checker</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
-
-<!-- Google reCAPTCHA -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
 <style>
-*{
-  box-sizing:border-box;
-}
+*{box-sizing:border-box}
 
 body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  padding:20px;
-  color:#fff;
-  font-family:"Hind Siliguri",Arial,sans-serif;
-  background:
-    radial-gradient(circle at top left,#ff0055aa,transparent 35%),
-    radial-gradient(circle at bottom right,#00eaff99,transparent 35%),
-    #080b16;
-  overflow-x:hidden;
+    margin:0;
+    min-height:100vh;
+    font-family:Arial,sans-serif;
+    background:#050505;
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow-x:hidden;
 }
 
 body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  background:
-    linear-gradient(120deg,transparent 45%,#ff005522 50%,transparent 55%),
-    linear-gradient(300deg,transparent 45%,#00eaff22 50%,transparent 55%);
-  animation:bgMove 7s linear infinite;
+    content:"";
+    position:fixed;
+    inset:-50%;
+    background:conic-gradient(
+        #ff0000,
+        #ff00ff,
+        #0000ff,
+        #00ffff,
+        #00ff00,
+        #ffff00,
+        #ff0000
+    );
+    animation:rgb 5s linear infinite;
+    filter:blur(80px);
+    opacity:.35;
+    z-index:-1;
 }
 
-@keyframes bgMove{
-  0%{transform:translateX(-20%)}
-  100%{transform:translateX(20%)}
+@keyframes rgb{
+    to{transform:rotate(360deg)}
 }
 
 .container{
-  position:relative;
-  width:100%;
-  max-width:520px;
-  padding:28px;
-  border:1px solid #ffffff25;
-  border-radius:24px;
-  background:#101522dd;
-  backdrop-filter:blur(18px);
-  box-shadow:
-    0 0 20px #ff005533,
-    0 0 45px #00eaff22;
+    width:94%;
+    max-width:520px;
+    padding:25px;
+    border:2px solid transparent;
+    border-radius:25px;
+    background:
+        linear-gradient(#090909,#090909) padding-box,
+        linear-gradient(90deg,#ff0000,#00ffff,#ff00ff,#00ff00,#ff0000) border-box;
+    box-shadow:0 0 35px #00ffff55;
 }
 
 .logo{
-  text-align:center;
-  margin-bottom:8px;
-  font-family:Orbitron,Arial,sans-serif;
-  font-size:28px;
-  font-weight:800;
-  letter-spacing:2px;
-  animation:rgbText 4s linear infinite;
-}
-
-@keyframes rgbText{
-  0%{color:#ff0055;text-shadow:0 0 15px #ff0055}
-  33%{color:#00eaff;text-shadow:0 0 15px #00eaff}
-  66%{color:#7dff00;text-shadow:0 0 15px #7dff00}
-  100%{color:#ff0055;text-shadow:0 0 15px #ff0055}
+    text-align:center;
+    font-size:30px;
+    font-weight:bold;
+    margin-bottom:5px;
 }
 
 .subtitle{
-  text-align:center;
-  color:#aeb8cc;
-  margin-bottom:25px;
-  font-size:15px;
-}
-
-label{
-  display:block;
-  margin:14px 0 7px;
-  color:#dce5f7;
-  font-size:15px;
-  font-weight:600;
+    text-align:center;
+    color:#aaa;
+    margin-bottom:25px;
 }
 
 input,select{
-  width:100%;
-  padding:14px 16px;
-  border:1px solid #ffffff25;
-  border-radius:12px;
-  outline:none;
-  background:#080c18cc;
-  color:#fff;
-  font-size:16px;
-  transition:.3s;
-}
-
-input:focus,select:focus{
-  border-color:#00eaff;
-  box-shadow:0 0 12px #00eaff55;
-}
-
-select option{
-  color:#000;
-}
-
-.captcha-box{
-  display:flex;
-  justify-content:center;
-  margin:22px 0 15px;
-  overflow:hidden;
+    width:100%;
+    padding:15px;
+    margin:8px 0;
+    border-radius:12px;
+    border:1px solid #444;
+    outline:none;
+    background:#111;
+    color:white;
+    font-size:16px;
 }
 
 button{
-  width:100%;
-  padding:15px;
-  border:0;
-  border-radius:13px;
-  cursor:pointer;
-  color:#fff;
-  font-size:17px;
-  font-weight:700;
-  font-family:"Hind Siliguri",Arial,sans-serif;
-  background:linear-gradient(90deg,#ff0055,#7b2cff,#00c8ff);
-  background-size:200% 200%;
-  animation:buttonRGB 4s ease infinite;
-  box-shadow:0 0 18px #7b2cff66;
-  transition:.3s;
-}
-
-button:hover{
-  transform:translateY(-2px);
-  box-shadow:0 0 25px #00eaff88;
+    width:100%;
+    padding:15px;
+    margin-top:10px;
+    border:0;
+    border-radius:12px;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
+    background:linear-gradient(90deg,#ff0055,#7b00ff,#00d9ff);
 }
 
 button:disabled{
-  opacity:.6;
-  cursor:not-allowed;
-  transform:none;
-}
-
-@keyframes buttonRGB{
-  0%{background-position:0% 50%}
-  50%{background-position:100% 50%}
-  100%{background-position:0% 50%}
+    opacity:.6;
 }
 
 .status{
-  display:none;
-  margin-top:18px;
-  padding:14px;
-  border-radius:12px;
-  text-align:center;
-  font-size:15px;
-  white-space:pre-wrap;
+    text-align:center;
+    margin:18px 0;
+    color:#00ffff;
 }
 
-.status.info{
-  display:block;
-  background:#008cff22;
-  border:1px solid #00bfff66;
-  color:#9deaff;
+.card{
+    margin-top:18px;
+    padding:20px;
+    border-radius:18px;
+    background:#111;
+    border:1px solid #333;
+    display:none;
 }
 
-.status.error{
-  display:block;
-  background:#ff174422;
-  border:1px solid #ff174466;
-  color:#ff9aaa;
+.name{
+    text-align:center;
+    font-size:25px;
+    font-weight:bold;
+    margin-bottom:18px;
 }
 
-.status.success{
-  display:block;
-  background:#00ff8822;
-  border:1px solid #00ff8866;
-  color:#9affc8;
+.info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
-.result{
-  display:none;
-  margin-top:20px;
-  padding:18px;
-  border-radius:15px;
-  background:#050812aa;
-  border:1px solid #00eaff55;
-  box-shadow:0 0 18px #00eaff22;
+.item{
+    padding:13px;
+    border-radius:12px;
+    background:#181818;
+    border:1px solid #292929;
 }
 
-.result h3{
-  margin:0 0 14px;
-  color:#00eaff;
-  text-align:center;
+.label{
+    color:#888;
+    font-size:12px;
 }
 
-.result-row{
-  display:flex;
-  justify-content:space-between;
-  gap:15px;
-  padding:10px 0;
-  border-bottom:1px solid #ffffff12;
+.value{
+    margin-top:5px;
+    font-size:17px;
+    font-weight:bold;
 }
 
-.result-row:last-child{
-  border-bottom:0;
-}
-
-.result-row span:first-child{
-  color:#aeb8cc;
-}
-
-.result-row span:last-child{
-  color:#fff;
-  font-weight:600;
-  text-align:right;
-  word-break:break-word;
+.error{
+    color:#ff5555;
+    text-align:center;
 }
 
 .footer{
-  margin-top:20px;
-  text-align:center;
-  color:#77839a;
-  font-size:13px;
-}
-
-@media(max-width:430px){
-  .container{
-    padding:21px;
-    border-radius:18px;
-  }
-
-  .logo{
-    font-size:23px;
-  }
-
-  .result-row{
-    flex-direction:column;
-    gap:3px;
-  }
-
-  .result-row span:last-child{
-    text-align:left;
-  }
+    text-align:center;
+    margin-top:20px;
+    color:#777;
+    font-size:12px;
 }
 </style>
 </head>
@@ -258,200 +162,190 @@ button:disabled{
 
 <div class="container">
 
-  <div class="logo">OHID AI</div>
-  <div class="subtitle">Free Fire UID Information Checker</div>
+    <div class="logo">🔥 OHID AI</div>
+    <div class="subtitle">Free Fire UID Checker</div>
 
-  <label for="uid">Free Fire UID</label>
-  <input
-    type="number"
-    id="uid"
-    placeholder="তোমার Free Fire UID লিখুন"
-    autocomplete="off"
-  >
+    <input
+        id="uid"
+        type="number"
+        placeholder="Enter Free Fire UID"
+    >
 
-  <label for="region">Region</label>
-  <select id="region">
-    <option value="bd">Bangladesh</option>
-    <option value="ind">India</option>
-    <option value="pk">Pakistan</option>
-    <option value="sg">Singapore</option>
-    <option value="me">Middle East</option>
-    <option value="br">Brazil</option>
-    <option value="us">USA</option>
-  </select>
+    <select id="server">
+        <option value="BD">🇧🇩 Bangladesh</option>
+        <option value="IND">🇮🇳 India</option>
+        <option value="SG">🇸🇬 Singapore</option>
+        <option value="PK">🇵🇰 Pakistan</option>
+        <option value="ID">🇮🇩 Indonesia</option>
+        <option value="ME">🌍 Middle East</option>
+        <option value="BR">🇧🇷 Brazil</option>
+        <option value="US">🇺🇸 North America</option>
+    </select>
 
-  <div class="captcha-box">
-    <!-- এখানে YOUR_GOOGLE_SITE_KEY পরিবর্তন করো -->
-    <div
-      class="g-recaptcha"
-      data-sitekey="YOUR_GOOGLE_SITE_KEY"
-      data-theme="dark">
+    <button id="searchBtn" onclick="getPlayer()">
+        🔍 Search Player
+    </button>
+
+    <div id="status" class="status"></div>
+
+    <div id="card" class="card">
+
+        <div id="nickname" class="name">Player</div>
+
+        <div class="info">
+
+            <div class="item">
+                <div class="label">UID</div>
+                <div id="uidValue" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">Level</div>
+                <div id="level" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">Region</div>
+                <div id="region" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">Likes</div>
+                <div id="likes" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">BR Rank</div>
+                <div id="rank" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">CS Rank</div>
+                <div id="csrank" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">Ranking Points</div>
+                <div id="points" class="value">-</div>
+            </div>
+
+            <div class="item">
+                <div class="label">Max Rank</div>
+                <div id="maxrank" class="value">-</div>
+            </div>
+
+        </div>
     </div>
-  </div>
 
-  <button id="checkBtn" onclick="checkUID()">
-    UID Check করুন
-  </button>
-
-  <div id="status" class="status"></div>
-
-  <div id="result" class="result">
-    <h3>Player Information</h3>
-    <div id="resultContent"></div>
-  </div>
-
-  <div class="footer">
-    Powered by Ohid AI
-  </div>
+    <div class="footer">
+        Unofficial Free Fire Player Information Tool
+    </div>
 
 </div>
 
 <script>
-const API_URL =
-  "https://freefireinfo.nepcoderapis.workers.dev/";
 
-function showStatus(message, type){
-  const status = document.getElementById("status");
-  status.className = "status " + type;
-  status.textContent = message;
-}
+async function getPlayer(){
 
-function escapeHTML(value){
-  return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
-}
+    const uid = document.getElementById("uid").value.trim();
+    const server = document.getElementById("server").value;
 
-function formatKey(key){
-  return String(key)
-    .replaceAll("_"," ")
-    .replace(/\b\w/g, char => char.toUpperCase());
-}
+    const status = document.getElementById("status");
+    const card = document.getElementById("card");
+    const button = document.getElementById("searchBtn");
 
-function createResultHTML(data){
-  let html = "";
-
-  function addRows(obj){
-    Object.entries(obj).forEach(([key,value]) => {
-      if(
-        value !== null &&
-        value !== undefined &&
-        typeof value !== "object"
-      ){
-        html += `
-          <div class="result-row">
-            <span>${escapeHTML(formatKey(key))}</span>
-            <span>${escapeHTML(value)}</span>
-          </div>
-        `;
-      }
-    });
-  }
-
-  if(data && typeof data === "object"){
-    if(data.data && typeof data.data === "object"){
-      addRows(data.data);
-    }else{
-      addRows(data);
+    if(!uid){
+        status.innerHTML =
+            '<span class="error">⚠️ Please enter a UID</span>';
+        card.style.display = "none";
+        return;
     }
-  }
 
-  if(!html){
-    html = `
-      <div class="result-row">
-        <span>Response</span>
-        <span>${escapeHTML(JSON.stringify(data))}</span>
-      </div>
-    `;
-  }
+    if(!/^[0-9]+$/.test(uid)){
+        status.innerHTML =
+            '<span class="error">⚠️ UID must contain numbers only</span>';
+        return;
+    }
 
-  return html;
-}
-
-async function checkUID(){
-  const uid = document.getElementById("uid").value.trim();
-  const region = document.getElementById("region").value;
-  const button = document.getElementById("checkBtn");
-  const result = document.getElementById("result");
-
-  if(!uid){
-    showStatus("প্রথমে UID লিখুন।","error");
-    return;
-  }
-
-  if(uid.length < 5){
-    showStatus("সঠিক Free Fire UID লিখুন।","error");
-    return;
-  }
-
-  // Google reCAPTCHA response সংগ্রহ
-  const captchaResponse =
-    typeof grecaptcha !== "undefined"
-      ? grecaptcha.getResponse()
-      : "";
-
-  if(!captchaResponse){
-    showStatus("আগে CAPTCHA সম্পূর্ণ করুন।","error");
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "তথ্য খোঁজা হচ্ছে...";
-  result.style.display = "none";
-
-  showStatus("API থেকে তথ্য আনা হচ্ছে...","info");
-
-  try{
-    const url =
-      API_URL +
-      "?uid=" + encodeURIComponent(uid) +
-      "&region=" + encodeURIComponent(region);
-
-    const response = await fetch(url);
-
-    const text = await response.text();
-
-    let data;
+    button.disabled = true;
+    button.innerText = "⏳ Searching...";
+    status.innerText = "Loading player information...";
+    card.style.display = "none";
 
     try{
-      data = JSON.parse(text);
-    }catch{
-      throw new Error(
-        "API সঠিক JSON response দেয়নি। API হয়তো CAPTCHA বা rate limit দেখাচ্ছে।"
-      );
+
+        const url =
+        `https://freefireinfo-zy9l.onrender.com/api/v1/player-profile?uid=${encodeURIComponent(uid)}&server=${encodeURIComponent(server)}`;
+
+        const response = await fetch(url);
+
+        const data = await response.json();
+
+        if(!response.ok){
+            throw new Error(
+                data.message || "Player not found"
+            );
+        }
+
+        const info = data.basicinfo || {};
+
+        document.getElementById("nickname").innerText =
+            info.nickname || "Unknown Player";
+
+        document.getElementById("uidValue").innerText =
+            info.accountid || uid;
+
+        document.getElementById("level").innerText =
+            info.level ?? "-";
+
+        document.getElementById("region").innerText =
+            info.region || server;
+
+        document.getElementById("likes").innerText =
+            info.liked ?? "-";
+
+        document.getElementById("rank").innerText =
+            info.rank ?? "-";
+
+        document.getElementById("csrank").innerText =
+            info.csrank ?? "-";
+
+        document.getElementById("points").innerText =
+            info.rankingpoints ?? "-";
+
+        document.getElementById("maxrank").innerText =
+            info.maxrank ?? "-";
+
+        status.innerHTML =
+            '<span style="color:#00ff88">✅ Player Found</span>';
+
+        card.style.display = "block";
+
+    }catch(error){
+
+        console.error(error);
+
+        status.innerHTML =
+            `<span class="error">❌ ${escapeHtml(error.message || "API Error")}</span>`;
+
+        card.style.display = "none";
+
+    }finally{
+
+        button.disabled = false;
+        button.innerText = "🔍 Search Player";
+
     }
-
-    if(!response.ok){
-      throw new Error(
-        data.message ||
-        data.error ||
-        "API request ব্যর্থ হয়েছে।"
-      );
-    }
-
-    document.getElementById("resultContent").innerHTML =
-      createResultHTML(data);
-
-    result.style.display = "block";
-    showStatus("Player information পাওয়া গেছে।","success");
-
-  }catch(error){
-    showStatus(
-      "সমস্যা হয়েছে:\n" + error.message,
-      "error"
-    );
-  }finally{
-    button.disabled = false;
-    button.textContent = "UID Check করুন";
-
-    if(typeof grecaptcha !== "undefined"){
-      grecaptcha.reset();
-    }
-  }
 }
+
+function escapeHtml(text){
+
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+
+}
+
 </script>
 
 </body>
