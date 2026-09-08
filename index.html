@@ -2,31 +2,32 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Ohid AI - Free Fire UID Checker</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Ohid AI</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
 
 body{
-    margin:0;
     min-height:100vh;
-    padding:20px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    font-family:Arial,sans-serif;
-    color:#fff;
     background:#050505;
+    color:white;
+    font-family:Arial, sans-serif;
     overflow-x:hidden;
 }
 
-body:before{
+/* RGB Background */
+body::before{
     content:"";
     position:fixed;
-    inset:-30%;
-    z-index:-1;
-    background:conic-gradient(
+    inset:-50%;
+    background:
+      conic-gradient(
         #ff0000,
         #ff00ff,
         #0000ff,
@@ -34,431 +35,245 @@ body:before{
         #00ff00,
         #ffff00,
         #ff0000
-    );
+      );
+    animation:rotate 8s linear infinite;
     filter:blur(100px);
-    opacity:.25;
-    animation:rotate 6s linear infinite;
+    opacity:.18;
+    z-index:-1;
 }
 
 @keyframes rotate{
-    to{transform:rotate(360deg)}
+    from{transform:rotate(0deg);}
+    to{transform:rotate(360deg);}
 }
 
-.box{
+/* Header */
+header{
     width:100%;
-    max-width:540px;
-    padding:25px;
-    border-radius:25px;
-    background:#080808ee;
-    position:relative;
-}
-
-.box:before{
-    content:"";
-    position:absolute;
-    inset:-2px;
-    z-index:-1;
-    border-radius:27px;
-    background:linear-gradient(
-        90deg,
-        #ff0000,
-        #ff00ff,
-        #00ffff,
-        #00ff00,
-        #ffff00,
-        #ff0000
-    );
-    background-size:400%;
-    animation:border 4s linear infinite;
-}
-
-@keyframes border{
-    to{background-position:400%}
+    padding:20px;
+    text-align:center;
+    border-bottom:1px solid rgba(255,255,255,.15);
+    background:rgba(0,0,0,.55);
+    backdrop-filter:blur(15px);
 }
 
 .logo{
-    text-align:center;
-    font-size:30px;
-    font-weight:900;
+    font-size:28px;
+    font-weight:bold;
+    letter-spacing:3px;
+    animation:rgbText 3s linear infinite;
 }
 
-.subtitle{
-    text-align:center;
-    color:#999;
-    margin:7px 0 25px;
+@keyframes rgbText{
+    0%{color:#ff0000;text-shadow:0 0 15px #ff0000;}
+    33%{color:#00ffff;text-shadow:0 0 15px #00ffff;}
+    66%{color:#ff00ff;text-shadow:0 0 15px #ff00ff;}
+    100%{color:#ff0000;text-shadow:0 0 15px #ff0000;}
 }
 
-input,select{
+/* Main */
+.container{
+    width:92%;
+    max-width:650px;
+    margin:50px auto;
+}
+
+.card{
+    padding:30px 20px;
+    border-radius:25px;
+    background:rgba(10,10,10,.75);
+    border:1px solid rgba(255,255,255,.18);
+    backdrop-filter:blur(18px);
+    box-shadow:0 0 30px rgba(0,255,255,.12);
+    text-align:center;
+}
+
+.card h1{
+    font-size:34px;
+    margin-bottom:10px;
+}
+
+.card p{
+    color:#aaa;
+    margin-bottom:25px;
+}
+
+/* Input */
+input{
     width:100%;
-    padding:15px;
-    margin-bottom:12px;
+    padding:16px;
     border-radius:12px;
     border:1px solid #333;
     outline:none;
     background:#111;
-    color:#fff;
+    color:white;
     font-size:16px;
+    margin-bottom:15px;
 }
 
+input:focus{
+    border-color:#00ffff;
+    box-shadow:0 0 15px rgba(0,255,255,.3);
+}
+
+/* Button */
 button{
     width:100%;
-    padding:15px;
-    border:0;
+    padding:16px;
+    border:none;
     border-radius:12px;
+    color:white;
     background:linear-gradient(
         90deg,
-        #ff0055,
+        #ff004c,
         #7b00ff,
         #00c8ff
     );
-    color:#fff;
     font-size:17px;
     font-weight:bold;
     cursor:pointer;
+    transition:.3s;
 }
 
-button:disabled{
-    opacity:.6;
+button:hover{
+    transform:translateY(-2px);
+    box-shadow:0 0 25px rgba(0,255,255,.4);
 }
 
-#status{
-    text-align:center;
-    min-height:25px;
-    margin:18px 0 5px;
-}
-
-.success{color:#00ff88}
-.error{color:#ff5555}
-
-.card{
-    display:none;
-    margin-top:18px;
-    padding:18px;
-    border-radius:18px;
-    background:#101010;
-    border:1px solid #333;
-}
-
-.nickname{
-    text-align:center;
-    font-size:25px;
-    font-weight:bold;
-    margin-bottom:18px;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.item{
-    padding:13px;
-    border-radius:12px;
-    background:#181818;
-    border:1px solid #292929;
-}
-
-.label{
-    color:#888;
-    font-size:12px;
-}
-
-.value{
-    margin-top:5px;
-    font-size:17px;
-    font-weight:bold;
-    word-break:break-word;
-}
-
-.raw{
-    margin-top:15px;
-    padding:12px;
-    border-radius:10px;
-    background:#050505;
-    color:#aaa;
-    font-size:11px;
-    max-height:180px;
-    overflow:auto;
-    white-space:pre-wrap;
-}
-
-.footer{
+#result{
     margin-top:20px;
+    padding:15px;
+    border-radius:12px;
+    background:#0d0d0d;
+    border:1px solid #222;
+    display:none;
+}
+
+/* Feature cards */
+.features{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:20px;
+}
+
+.feature{
+    padding:18px 8px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+    border-radius:15px;
     text-align:center;
-    color:#666;
-    font-size:11px;
+}
+
+.feature span{
+    display:block;
+    font-size:25px;
+    margin-bottom:7px;
+}
+
+.feature small{
+    color:#aaa;
+}
+
+/* Mobile */
+@media(max-width:500px){
+
+    .container{
+        margin:30px auto;
+    }
+
+    .card{
+        padding:25px 16px;
+    }
+
+    .card h1{
+        font-size:28px;
+    }
+
+    .features{
+        grid-template-columns:1fr;
+    }
+
+    .feature{
+        padding:15px;
+    }
+
+    .logo{
+        font-size:23px;
+    }
 }
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<header>
+    <div class="logo">⚡ OHID AI</div>
+</header>
 
-    <div class="logo">🔥 OHID AI</div>
+<div class="container">
 
-    <div class="subtitle">
-        Free Fire Player Information
-    </div>
+    <div class="card">
 
-    <input
-        id="uid"
-        type="text"
-        inputmode="numeric"
-        placeholder="Enter Free Fire UID"
-    >
+        <h1>Welcome 👋</h1>
 
-    <select id="server">
-        <option value="BD">🇧🇩 Bangladesh</option>
-        <option value="IND">🇮🇳 India</option>
-        <option value="SG">🇸🇬 Singapore</option>
-        <option value="PK">🇵🇰 Pakistan</option>
-        <option value="ID">🇮🇩 Indonesia</option>
-        <option value="ME">🌍 Middle East</option>
-        <option value="BR">🇧🇷 Brazil</option>
-        <option value="US">🇺🇸 North America</option>
-    </select>
+        <p>
+            Mobile Friendly RGB Website
+        </p>
 
-    <button id="searchBtn" onclick="searchPlayer()">
-        🔍 Search Player
-    </button>
+        <input
+            type="text"
+            id="name"
+            placeholder="Enter your name"
+        >
 
-    <div id="status"></div>
+        <button onclick="showMessage()">
+            🚀 Continue
+        </button>
 
-    <div id="card" class="card">
-
-        <div id="nickname" class="nickname">
-            Unknown Player
-        </div>
-
-        <div class="grid">
-
-            <div class="item">
-                <div class="label">UID</div>
-                <div id="uidValue" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">Level</div>
-                <div id="level" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">Region</div>
-                <div id="region" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">Likes</div>
-                <div id="likes" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">BR Rank</div>
-                <div id="rank" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">CS Rank</div>
-                <div id="csrank" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">Ranking Points</div>
-                <div id="points" class="value">-</div>
-            </div>
-
-            <div class="item">
-                <div class="label">Max Rank</div>
-                <div id="maxrank" class="value">-</div>
-            </div>
-
-        </div>
-
-        <pre id="raw" class="raw"></pre>
+        <div id="result"></div>
 
     </div>
 
-    <div class="footer">
-        Unofficial Free Fire Player Information Tool
+    <div class="features">
+
+        <div class="feature">
+            <span>📱</span>
+            <small>Mobile Friendly</small>
+        </div>
+
+        <div class="feature">
+            <span>🌈</span>
+            <small>RGB Design</small>
+        </div>
+
+        <div class="feature">
+            <span>⚡</span>
+            <small>Fast UI</small>
+        </div>
+
     </div>
 
 </div>
 
 <script>
+function showMessage(){
 
-const API =
-"https://freefireinfo-zy9l.onrender.com/api/v1/player-profile";
+    const name = document.getElementById("name").value.trim();
+    const result = document.getElementById("result");
 
-async function searchPlayer(){
-
-    const uid =
-        document.getElementById("uid")
-        .value.trim();
-
-    const server =
-        document.getElementById("server")
-        .value;
-
-    const status =
-        document.getElementById("status");
-
-    const card =
-        document.getElementById("card");
-
-    const button =
-        document.getElementById("searchBtn");
-
-    card.style.display="none";
-
-    if(!uid){
-
-        status.innerHTML =
-        '<span class="error">⚠️ UID দিন</span>';
-
+    if(name === ""){
+        result.style.display = "block";
+        result.innerHTML = "⚠️ Please enter your name.";
         return;
     }
 
-    if(!/^[0-9]+$/.test(uid)){
-
-        status.innerHTML =
-        '<span class="error">⚠️ UID শুধু সংখ্যা হতে হবে</span>';
-
-        return;
-    }
-
-    button.disabled=true;
-    button.innerText="⏳ Searching...";
-    status.innerText="Player information loading...";
-
-    try{
-
-        /*
-         * GitHub Pages থেকে সরাসরি API request.
-         * API CORS allow না করলে browser request block করবে।
-         */
-
-        const url =
-            API +
-            "?uid=" +
-            encodeURIComponent(uid) +
-            "&server=" +
-            encodeURIComponent(server);
-
-        const response =
-            await fetch(url,{
-                method:"GET",
-                headers:{
-                    "Accept":"application/json"
-                }
-            });
-
-        if(!response.ok){
-
-            throw new Error(
-                "API HTTP Error: " +
-                response.status
-            );
-        }
-
-        const data =
-            await response.json();
-
-        const info =
-            data.basicinfo ||
-            data.basicInfo ||
-            data.player ||
-            data.data ||
-            data;
-
-        document.getElementById("nickname").textContent =
-            info.nickname ||
-            info.name ||
-            "Unknown Player";
-
-        document.getElementById("uidValue").textContent =
-            info.accountid ||
-            info.accountId ||
-            uid;
-
-        document.getElementById("level").textContent =
-            info.level ?? "-";
-
-        document.getElementById("region").textContent =
-            info.region ||
-            server;
-
-        document.getElementById("likes").textContent =
-            info.liked ??
-            info.likes ??
-            "-";
-
-        document.getElementById("rank").textContent =
-            info.rank ??
-            info.brRank ??
-            "-";
-
-        document.getElementById("csrank").textContent =
-            info.csrank ??
-            info.csRank ??
-            "-";
-
-        document.getElementById("points").textContent =
-            info.rankingpoints ??
-            info.rankingPoints ??
-            "-";
-
-        document.getElementById("maxrank").textContent =
-            info.maxrank ??
-            info.maxRank ??
-            "-";
-
-        document.getElementById("raw").textContent =
-            JSON.stringify(data,null,2);
-
-        card.style.display="block";
-
-        status.innerHTML =
-        '<span class="success">✅ Player Found</span>';
-
-    }catch(error){
-
-        console.error(error);
-
-        let message = error.message;
-
-        if(
-            error instanceof TypeError &&
-            message.toLowerCase().includes("fetch")
-        ){
-
-            message =
-            "CORS/API connection blocked. এই API browser থেকে access করতে দিচ্ছে না।";
-        }
-
-        status.innerHTML =
-        '<span class="error">❌ ' +
-        escapeHTML(message) +
-        '</span>';
-
-    }finally{
-
-        button.disabled=false;
-        button.innerText="🔍 Search Player";
-
-    }
+    result.style.display = "block";
+    result.innerHTML =
+        "🔥 Welcome, <b>" +
+        name +
+        "</b>!<br><br>You're inside Ohid AI.";
 }
-
-function escapeHTML(text){
-
-    const div=document.createElement("div");
-
-    div.textContent=text;
-
-    return div.innerHTML;
-}
-
 </script>
 
 </body>
