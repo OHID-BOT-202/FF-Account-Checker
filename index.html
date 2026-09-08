@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,48 +6,35 @@
 <title>Ohid AI - Free Fire UID Checker</title>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&display=swap');
 
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
-}
-
-:root{
-    --bg:#050509;
-    --card:rgba(15,15,25,.88);
-    --text:#ffffff;
-    --muted:#a8a8b8;
-    --cyan:#00f7ff;
-    --pink:#ff00d4;
-    --purple:#8b00ff;
-    --green:#00ff88;
-    --red:#ff3158;
 }
 
 body{
     min-height:100vh;
-    color:var(--text);
+    color:#fff;
     font-family:Arial,sans-serif;
     background:
-        radial-gradient(circle at 15% 15%,rgba(0,247,255,.14),transparent 28%),
-        radial-gradient(circle at 85% 20%,rgba(255,0,212,.14),transparent 28%),
-        radial-gradient(circle at 50% 100%,rgba(139,0,255,.16),transparent 35%),
-        var(--bg);
+        radial-gradient(circle at 15% 15%,#003d45aa,transparent 30%),
+        radial-gradient(circle at 85% 20%,#470044aa,transparent 30%),
+        radial-gradient(circle at 50% 100%,#190044cc,transparent 40%),
+        #050509;
     overflow-x:hidden;
 }
 
-body::before{
+body:before{
     content:"";
     position:fixed;
     inset:0;
     pointer-events:none;
     background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+        linear-gradient(#ffffff08 1px,transparent 1px),
+        linear-gradient(90deg,#ffffff08 1px,transparent 1px);
     background-size:35px 35px;
-    mask-image:linear-gradient(to bottom,black,transparent);
 }
 
 .container{
@@ -57,44 +43,41 @@ body::before{
 }
 
 header{
-    padding:25px 0;
     display:flex;
-    align-items:center;
     justify-content:space-between;
-    gap:20px;
+    align-items:center;
+    gap:15px;
     flex-wrap:wrap;
+    padding:28px 0;
 }
 
 .logo{
     font-family:Orbitron,sans-serif;
-    font-size:25px;
+    font-size:28px;
     font-weight:900;
     letter-spacing:2px;
-    color:white;
-    text-shadow:
-        0 0 8px var(--cyan),
-        0 0 20px var(--pink);
+    text-shadow:0 0 12px #00f7ff,0 0 25px #ff00d4;
 }
 
 .logo span{
-    color:var(--cyan);
+    color:#00f7ff;
 }
 
 .status{
     display:flex;
     align-items:center;
     gap:8px;
-    color:var(--green);
+    color:#00ff88;
     font-size:13px;
     font-weight:bold;
 }
 
 .status-dot{
-    width:9px;
-    height:9px;
+    width:10px;
+    height:10px;
     border-radius:50%;
-    background:var(--green);
-    box-shadow:0 0 12px var(--green);
+    background:#00ff88;
+    box-shadow:0 0 15px #00ff88;
     animation:blink 1s infinite alternate;
 }
 
@@ -105,44 +88,51 @@ header{
 
 .hero{
     text-align:center;
-    padding:35px 0 28px;
+    padding:35px 0;
 }
 
 .hero h1{
     font-family:Orbitron,sans-serif;
-    font-size:clamp(28px,6vw,55px);
-    line-height:1.2;
-    margin-bottom:15px;
-    background:linear-gradient(90deg,var(--cyan),white,var(--pink));
+    font-size:clamp(27px,6vw,58px);
+    line-height:1.25;
+    background:linear-gradient(90deg,#00f7ff,#fff,#ff00d4);
     -webkit-background-clip:text;
     color:transparent;
-    text-shadow:0 0 25px rgba(0,247,255,.15);
+    margin-bottom:18px;
 }
 
 .hero p{
-    color:var(--muted);
-    font-size:15px;
+    color:#aaaaba;
+    font-size:16px;
 }
 
-.search-card{
+.search-card,
+.profile-card{
     position:relative;
-    background:var(--card);
-    border:1px solid transparent;
+    background:#0c0c15e8;
     border-radius:22px;
     padding:25px;
-    margin-bottom:25px;
+    margin-bottom:22px;
     overflow:hidden;
 }
 
-.search-card::before{
+.search-card:before,
+.profile-card:before{
     content:"";
     position:absolute;
     inset:0;
-    padding:1px;
     border-radius:22px;
-    background:linear-gradient(90deg,var(--cyan),var(--pink),var(--purple),var(--cyan));
+    padding:1px;
+    background:linear-gradient(
+        90deg,
+        #00f7ff,
+        #8b00ff,
+        #ff00d4,
+        #00ff88,
+        #00f7ff
+    );
     background-size:300% 300%;
-    animation:rgbBorder 5s linear infinite;
+    animation:rgb 5s linear infinite;
     -webkit-mask:
         linear-gradient(#000 0 0) content-box,
         linear-gradient(#000 0 0);
@@ -151,124 +141,114 @@ header{
     pointer-events:none;
 }
 
-@keyframes rgbBorder{
+@keyframes rgb{
     0%{background-position:0% 50%}
     50%{background-position:100% 50%}
     100%{background-position:0% 50%}
 }
 
 .form-grid{
-    display:grid;
-    grid-template-columns:1fr 180px 150px;
-    gap:12px;
     position:relative;
     z-index:1;
+    display:grid;
+    grid-template-columns:1fr 190px 160px;
+    gap:12px;
 }
 
 .input,
 .select,
 .search-btn{
+    height:54px;
     width:100%;
-    height:52px;
-    border-radius:12px;
-    border:1px solid #303040;
+    border-radius:13px;
+    font-size:16px;
     outline:none;
-    font-size:15px;
-    color:white;
 }
 
 .input,
 .select{
-    background:#090912;
+    color:#fff;
+    background:#07070d;
+    border:1px solid #303040;
     padding:0 16px;
 }
 
 .input:focus,
 .select:focus{
-    border-color:var(--cyan);
-    box-shadow:0 0 15px rgba(0,247,255,.2);
+    border-color:#00f7ff;
+    box-shadow:0 0 15px #00f7ff33;
 }
 
 .select option{
-    background:#090912;
-    color:white;
+    background:#08080f;
 }
 
 .search-btn{
+    border:0;
     cursor:pointer;
-    font-weight:bold;
+    color:#fff;
     font-family:Orbitron,sans-serif;
-    letter-spacing:.5px;
-    background:linear-gradient(90deg,var(--cyan),var(--purple),var(--pink));
-    background-size:200% 200%;
-    animation:buttonRGB 4s linear infinite;
-    border:none;
-    transition:.3s;
-}
-
-@keyframes buttonRGB{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+    font-weight:bold;
+    background:linear-gradient(90deg,#008dcc,#7800c9,#bd00a5);
+    transition:.25s;
 }
 
 .search-btn:hover{
     transform:translateY(-2px);
-    box-shadow:0 0 25px rgba(0,247,255,.35);
+    box-shadow:0 0 25px #00f7ff55;
 }
 
 .search-btn:disabled{
     opacity:.55;
     cursor:not-allowed;
-    transform:none;
 }
 
 .hint{
     position:relative;
     z-index:1;
-    margin-top:12px;
     color:#777789;
     font-size:12px;
+    margin-top:12px;
 }
 
 .message{
     display:none;
-    padding:15px;
-    border-radius:12px;
+    padding:16px;
     margin-bottom:20px;
+    border-radius:13px;
     font-size:14px;
-    line-height:1.6;
+    line-height:1.5;
 }
 
 .message.error{
     display:block;
-    color:#ffb3c0;
-    background:rgba(255,49,88,.1);
-    border:1px solid rgba(255,49,88,.4);
+    color:#ffb6c5;
+    background:#41081755;
+    border:1px solid #ff315866;
 }
 
 .message.success{
     display:block;
-    color:#aaffd2;
-    background:rgba(0,255,136,.08);
-    border:1px solid rgba(0,255,136,.35);
+    color:#baffdb;
+    background:#003d2855;
+    border:1px solid #00ff8866;
 }
 
 .loading{
     display:none;
     text-align:center;
-    padding:35px 10px;
+    padding:35px;
 }
 
 .spinner{
     width:42px;
     height:42px;
-    margin:auto;
     border:3px solid #252535;
-    border-top-color:var(--cyan);
-    border-right-color:var(--pink);
+    border-top-color:#00f7ff;
+    border-right-color:#ff00d4;
     border-radius:50%;
     animation:spin 1s linear infinite;
+    margin:auto;
 }
 
 @keyframes spin{
@@ -276,207 +256,175 @@ header{
 }
 
 .loading p{
-    color:var(--muted);
     margin-top:15px;
-    font-size:14px;
+    color:#aaaaba;
 }
 
 .results{
     display:none;
 }
 
-.profile-card{
-    position:relative;
-    background:rgba(14,14,24,.9);
-    border:1px solid #29293c;
-    border-radius:22px;
-    padding:24px;
-    margin-bottom:20px;
-    overflow:hidden;
-}
-
-.profile-card::after{
-    content:"";
-    position:absolute;
-    width:180px;
-    height:180px;
-    right:-80px;
-    top:-80px;
-    background:var(--pink);
-    opacity:.08;
-    filter:blur(45px);
-    border-radius:50%;
-}
-
 .profile-top{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:18px;
     position:relative;
     z-index:1;
 }
 
 .avatar{
-    width:85px;
-    height:85px;
-    border-radius:18px;
+    width:86px;
+    height:86px;
+    flex-shrink:0;
+    border-radius:20px;
     display:flex;
     align-items:center;
     justify-content:center;
-    font-size:35px;
-    font-weight:bold;
     font-family:Orbitron,sans-serif;
-    color:white;
-    background:linear-gradient(135deg,var(--cyan),var(--purple),var(--pink));
-    box-shadow:0 0 25px rgba(0,247,255,.25);
-    flex-shrink:0;
+    font-size:34px;
+    font-weight:bold;
+    background:linear-gradient(135deg,#00a9c7,#7b00c7,#e000a8);
+    box-shadow:0 0 25px #00f7ff44;
 }
 
 .profile-name{
     font-family:Orbitron,sans-serif;
-    font-size:clamp(19px,4vw,28px);
-    margin-bottom:8px;
+    font-size:clamp(18px,4vw,29px);
     word-break:break-word;
+    margin-bottom:8px;
 }
 
 .profile-id{
-    color:var(--muted);
+    color:#9999aa;
     font-size:13px;
-    margin-bottom:8px;
+    margin-bottom:10px;
 }
 
 .badges{
     display:flex;
-    gap:8px;
     flex-wrap:wrap;
+    gap:8px;
 }
 
 .badge{
-    display:inline-flex;
-    padding:5px 9px;
+    border:1px solid #00f7ff55;
+    background:#00f7ff12;
+    color:#baffff;
+    padding:5px 10px;
     border-radius:30px;
     font-size:11px;
-    color:#dfffff;
-    background:rgba(0,247,255,.08);
-    border:1px solid rgba(0,247,255,.3);
 }
 
 .badge.pink{
-    color:#ffd8f8;
-    background:rgba(255,0,212,.08);
-    border-color:rgba(255,0,212,.3);
+    border-color:#ff00d455;
+    background:#ff00d412;
+    color:#ffd3f6;
 }
 
 .section-title{
+    position:relative;
+    z-index:1;
     display:flex;
     align-items:center;
     gap:10px;
-    margin:22px 0 14px;
     font-family:Orbitron,sans-serif;
     font-size:17px;
+    margin:24px 0 15px;
 }
 
-.section-title::before{
+.section-title:before{
     content:"";
     width:4px;
     height:20px;
     border-radius:10px;
-    background:linear-gradient(var(--cyan),var(--pink));
-    box-shadow:0 0 10px var(--cyan);
+    background:linear-gradient(#00f7ff,#ff00d4);
+    box-shadow:0 0 10px #00f7ff;
 }
 
 .info-grid{
+    position:relative;
+    z-index:1;
     display:grid;
     grid-template-columns:repeat(4,1fr);
     gap:12px;
 }
 
-.info-box{
-    background:#090912;
-    border:1px solid #252538;
+.info-box,
+.stat-card{
+    background:#07070d;
+    border:1px solid #29293b;
     border-radius:14px;
     padding:15px;
     min-width:0;
 }
 
 .info-label{
-    color:#858599;
+    color:#77778b;
     font-size:11px;
-    margin-bottom:8px;
     text-transform:uppercase;
-    letter-spacing:.5px;
+    margin-bottom:8px;
 }
 
 .info-value{
-    color:white;
+    color:#fff;
     font-size:17px;
     font-weight:bold;
     word-break:break-word;
 }
 
-.info-value.cyan{
-    color:var(--cyan);
-    text-shadow:0 0 10px rgba(0,247,255,.35);
+.cyan{
+    color:#00f7ff;
 }
 
-.info-value.pink{
-    color:var(--pink);
-    text-shadow:0 0 10px rgba(255,0,212,.3);
+.pink{
+    color:#ff00d4;
 }
 
-.info-value.green{
-    color:var(--green);
-    text-shadow:0 0 10px rgba(0,255,136,.3);
+.green{
+    color:#00ff88;
 }
 
 .stats-grid{
+    position:relative;
+    z-index:1;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:14px;
+    gap:13px;
 }
 
 .stat-card{
-    background:#090912;
-    border:1px solid #252538;
-    border-radius:15px;
-    padding:18px;
     text-align:center;
 }
 
 .stat-card h3{
-    color:var(--muted);
+    color:#9999aa;
     font-size:12px;
     font-weight:normal;
-    margin-bottom:10px;
+    margin-bottom:12px;
 }
 
 .stat-number{
+    color:#00f7ff;
     font-family:Orbitron,sans-serif;
     font-size:25px;
-    color:var(--cyan);
     margin-bottom:5px;
 }
 
 .stat-small{
-    color:#777789;
+    color:#66667a;
     font-size:11px;
 }
 
 .footer{
     text-align:center;
-    padding:30px 0;
-    color:#666678;
+    color:#777789;
     font-size:12px;
+    line-height:1.7;
+    padding:25px 0 35px;
 }
 
 .footer strong{
-    color:var(--cyan);
-}
-
-.empty{
-    text-align:center;
-    padding:35px 10px;
-    color:var(--muted);
+    color:#00f7ff;
 }
 
 @media(max-width:850px){
@@ -499,12 +447,17 @@ header{
     }
 
     .hero{
-        padding-top:20px;
+        padding:20px 0 30px;
     }
 
     .search-card,
     .profile-card{
         padding:18px;
+        border-radius:17px;
+    }
+
+    .search-card:before,
+    .profile-card:before{
         border-radius:17px;
     }
 
@@ -523,8 +476,8 @@ header{
     .avatar{
         width:65px;
         height:65px;
-        border-radius:14px;
         font-size:25px;
+        border-radius:14px;
     }
 
     .stats-grid{
@@ -542,208 +495,173 @@ header{
 
 <div class="container">
 
-    <header>
-        <div class="logo">OHID <span>AI</span></div>
+<header>
+    <div class="logo">OHID <span>AI</span></div>
 
-        <div class="status">
-            <span class="status-dot"></span>
-            API SYSTEM READY
+    <div class="status">
+        <span class="status-dot"></span>
+        API SYSTEM READY
+    </div>
+</header>
+
+<section class="hero">
+    <h1>FREE FIRE UID CHECKER</h1>
+    <p>Search Free Fire player profile and statistics with Ohid AI</p>
+</section>
+
+<section class="search-card">
+    <form id="searchForm">
+
+        <div class="form-grid">
+            <input
+                id="uidInput"
+                class="input"
+                type="text"
+                inputmode="numeric"
+                placeholder="Enter Free Fire UID"
+                required
+            >
+
+            <select id="serverInput" class="select">
+                <option value="BD">Bangladesh - BD</option>
+                <option value="IND">India - IND</option>
+                <option value="SG">Singapore - SG</option>
+                <option value="ID">Indonesia - ID</option>
+                <option value="BR">Brazil - BR</option>
+                <option value="US">United States - US</option>
+            </select>
+
+            <button id="searchBtn" class="search-btn" type="submit">
+                SEARCH UID
+            </button>
         </div>
-    </header>
 
-    <section class="hero">
-        <h1>FREE FIRE UID CHECKER</h1>
-        <p>Search Free Fire player profile and statistics with Ohid AI</p>
-    </section>
+        <p class="hint">
+            Example: 2882830590 — Only enter numeric Free Fire UID.
+        </p>
 
-    <section class="search-card">
-        <form id="searchForm">
-            <div class="form-grid">
-                <input
-                    type="text"
-                    id="uidInput"
-                    class="input"
-                    placeholder="Enter Free Fire UID"
-                    inputmode="numeric"
-                    required
-                >
+    </form>
+</section>
 
-                <select id="serverInput" class="select">
-                    <option value="BD">Bangladesh - BD</option>
-                    <option value="IND">India - IND</option>
-                    <option value="SG">Singapore - SG</option>
-                    <option value="ID">Indonesia - ID</option>
-                    <option value="BR">Brazil - BR</option>
-                    <option value="US">United States - US</option>
-                </select>
+<div id="message" class="message"></div>
 
-                <button class="search-btn" id="searchBtn" type="submit">
-                    SEARCH UID
-                </button>
+<div id="loading" class="loading">
+    <div class="spinner"></div>
+    <p>Searching player data...</p>
+</div>
+
+<section id="results" class="results">
+
+    <div class="profile-card">
+
+        <div class="profile-top">
+            <div id="avatar" class="avatar">O</div>
+
+            <div>
+                <h2 id="playerName" class="profile-name">
+                    Unknown Player
+                </h2>
+
+                <p class="profile-id">
+                    UID: <span id="playerUID">-</span>
+                </p>
+
+                <div class="badges">
+                    <span id="regionBadge" class="badge">
+                        Region: -
+                    </span>
+
+                    <span id="levelBadge" class="badge pink">
+                        Level: -
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <h3 class="section-title">Player Information</h3>
+
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="info-label">Account Level</div>
+                <div id="level" class="info-value cyan">-</div>
             </div>
 
-            <p class="hint">
-                Example: 1234567890 — Only enter the numeric Free Fire UID.
-            </p>
-        </form>
-    </section>
+            <div class="info-box">
+                <div class="info-label">Likes</div>
+                <div id="likes" class="info-value pink">-</div>
+            </div>
 
-    <div id="message" class="message"></div>
+            <div class="info-box">
+                <div class="info-label">BR Rank</div>
+                <div id="brRank" class="info-value green">-</div>
+            </div>
 
-    <div id="loading" class="loading">
-        <div class="spinner"></div>
-        <p>Searching player data...</p>
+            <div class="info-box">
+                <div class="info-label">CS Rank</div>
+                <div id="csRank" class="info-value cyan">-</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">BR Points</div>
+                <div id="brPoints" class="info-value">-</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">CS Points</div>
+                <div id="csPoints" class="info-value">-</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">Badge Count</div>
+                <div id="badgesCount" class="info-value">-</div>
+            </div>
+
+            <div class="info-box">
+                <div class="info-label">Title</div>
+                <div id="title" class="info-value">-</div>
+            </div>
+        </div>
+
     </div>
 
-    <section id="results" class="results">
+    <div class="profile-card">
 
-        <div class="profile-card">
-            <div class="profile-top">
-                <div class="avatar" id="avatar">O</div>
+        <h3 class="section-title">Account Details</h3>
 
-                <div>
-                    <h2 class="profile-name" id="playerName">Unknown Player</h2>
-                    <p class="profile-id">
-                        UID: <span id="playerUID">-</span>
-                    </p>
-
-                    <div class="badges">
-                        <span class="badge" id="regionBadge">Region: -</span>
-                        <span class="badge pink" id="levelBadge">Level: -</span>
-                    </div>
-                </div>
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="info-label">Account Created</div>
+                <div id="createdAt" class="info-value">-</div>
             </div>
 
-            <h3 class="section-title">Player Information</h3>
+            <div class="info-box">
+                <div class="info-label">Last Login</div>
+                <div id="lastLogin" class="info-value">-</div>
+            </div>
 
-            <div class="info-grid">
-                <div class="info-box">
-                    <div class="info-label">Account Level</div>
-                    <div class="info-value cyan" id="level">-</div>
-                </div>
+            <div class="info-box">
+                <div class="info-label">Max BR Rank</div>
+                <div id="maxBRRank" class="info-value">-</div>
+            </div>
 
-                <div class="info-box">
-                    <div class="info-label">Likes</div>
-                    <div class="info-value pink" id="likes">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">BR Rank</div>
-                    <div class="info-value green" id="brRank">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">CS Rank</div>
-                    <div class="info-value cyan" id="csRank">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">BR Rank Points</div>
-                    <div class="info-value" id="brPoints">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">CS Rank Points</div>
-                    <div class="info-value" id="csPoints">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">Badge Count</div>
-                    <div class="info-value" id="badgesCount">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">Title</div>
-                    <div class="info-value" id="title">-</div>
-                </div>
+            <div class="info-box">
+                <div class="info-label">Max CS Rank</div>
+                <div id="maxCSRank" class="info-value">-</div>
             </div>
         </div>
 
-        <div class="profile-card">
-            <h3 class="section-title">Battle Royale Statistics</h3>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Games Played</h3>
-                    <div class="stat-number" id="brGames">-</div>
-                    <div class="stat-small">Total matches</div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Wins</h3>
-                    <div class="stat-number" id="brWins">-</div>
-                    <div class="stat-small">Victory count</div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Kills</h3>
-                    <div class="stat-number" id="brKills">-</div>
-                    <div class="stat-small">Total eliminations</div>
-                </div>
-            </div>
-
-            <h3 class="section-title">Clash Squad Statistics</h3>
-
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <h3>Games Played</h3>
-                    <div class="stat-number" id="csGames">-</div>
-                    <div class="stat-small">Total matches</div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Wins</h3>
-                    <div class="stat-number" id="csWins">-</div>
-                    <div class="stat-small">Victory count</div>
-                </div>
-
-                <div class="stat-card">
-                    <h3>Kills</h3>
-                    <div class="stat-number" id="csKills">-</div>
-                    <div class="stat-small">Total eliminations</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-card">
-            <h3 class="section-title">Account Details</h3>
-
-            <div class="info-grid">
-                <div class="info-box">
-                    <div class="info-label">Account Created</div>
-                    <div class="info-value" id="createdAt">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">Last Login</div>
-                    <div class="info-value" id="lastLogin">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">Max BR Rank</div>
-                    <div class="info-value" id="maxBRRank">-</div>
-                </div>
-
-                <div class="info-box">
-                    <div class="info-label">Max CS Rank</div>
-                    <div class="info-value" id="maxCSRank">-</div>
-                </div>
-            </div>
-        </div>
-
-    </section>
-
-    <div class="footer">
-        Made with <strong>RGB Technology</strong> by <strong>Ohid AI</strong><br>
-        Free Fire data is provided by an unofficial API.
     </div>
+
+</section>
+
+<footer class="footer">
+    Made with <strong>RGB Technology</strong> by <strong>Ohid AI</strong><br>
+    Free Fire data is provided by an unofficial API.
+</footer>
 
 </div>
 
 <script>
-const BASE_URL = "https://freefireinfo-zy9l.onrender.com";
-const API_VERSION = "v1";
-
 const searchForm = document.getElementById("searchForm");
 const uidInput = document.getElementById("uidInput");
 const serverInput = document.getElementById("serverInput");
@@ -753,7 +671,7 @@ const message = document.getElementById("message");
 const loading = document.getElementById("loading");
 const results = document.getElementById("results");
 
-function getValue(value, fallback = "-"){
+function valueOrDash(value){
     if(
         value === undefined ||
         value === null ||
@@ -761,7 +679,7 @@ function getValue(value, fallback = "-"){
         value === "null" ||
         value === "undefined"
     ){
-        return fallback;
+        return "-";
     }
 
     return value;
@@ -769,19 +687,10 @@ function getValue(value, fallback = "-"){
 
 function setText(id, value){
     const element = document.getElementById(id);
+
     if(element){
-        element.textContent = getValue(value);
+        element.textContent = valueOrDash(value);
     }
-}
-
-function showMessage(text, type = "error"){
-    message.textContent = text;
-    message.className = "message " + type;
-}
-
-function hideMessage(){
-    message.textContent = "";
-    message.className = "message";
 }
 
 function formatNumber(value){
@@ -803,13 +712,13 @@ function formatDate(value){
         return "-";
     }
 
-    let date;
+    const numberValue = Number(value);
 
-    if(typeof value === "number"){
-        date = new Date(value < 10000000000 ? value * 1000 : value);
-    }else{
-        date = new Date(value);
-    }
+    const date = new Date(
+        Number.isNaN(numberValue)
+            ? value
+            : numberValue * 1000
+    );
 
     if(Number.isNaN(date.getTime())){
         return value;
@@ -818,8 +727,8 @@ function formatDate(value){
     return date.toLocaleString();
 }
 
-function getRankName(rank){
-    const rankMap = {
+function rankName(rank){
+    const ranks = {
         0:"Unranked",
         1:"Bronze",
         2:"Silver",
@@ -834,35 +743,25 @@ function getRankName(rank){
         return "-";
     }
 
-    return rankMap[rank] || "Rank ID " + rank;
+    return ranks[rank] || "Rank ID " + rank;
 }
 
-function getStatsObject(data, type){
-    if(!data){
-        return {};
-    }
+function showMessage(text, type){
+    message.textContent = text;
+    message.className = "message " + type;
+}
 
-    const possibleKeys = type === "br"
-        ? ["solostats", "soloStats", "brstats", "brStats"]
-        : ["quadstats", "quadStats", "csstats", "csStats"];
-
-    for(const key of possibleKeys){
-        if(data[key]){
-            return data[key];
-        }
-    }
-
-    return {};
+function clearMessage(){
+    message.textContent = "";
+    message.className = "message";
 }
 
 function clearResults(){
     results.style.display = "none";
 
-    const ids = [
+    [
         "playerName",
         "playerUID",
-        "regionBadge",
-        "levelBadge",
         "level",
         "likes",
         "brRank",
@@ -871,197 +770,105 @@ function clearResults(){
         "csPoints",
         "badgesCount",
         "title",
-        "brGames",
-        "brWins",
-        "brKills",
-        "csGames",
-        "csWins",
-        "csKills",
         "createdAt",
         "lastLogin",
         "maxBRRank",
         "maxCSRank"
-    ];
+    ].forEach(id => setText(id, "-"));
 
-    ids.forEach(id => setText(id, "-"));
+    document.getElementById("avatar").textContent = "O";
+    document.getElementById("regionBadge").textContent = "Region: -";
+    document.getElementById("levelBadge").textContent = "Level: -";
 }
 
-async function fetchProfile(uid, server){
+async function getPlayer(uid, server){
     const url =
-        BASE_URL +
-        "/api/" +
-        API_VERSION +
-        "/player-profile?uid=" +
+        "api.php?uid=" +
         encodeURIComponent(uid) +
         "&server=" +
         encodeURIComponent(server);
 
-    const response = await fetch(url);
+    const response = await fetch(url, {
+        method:"GET",
+        cache:"no-store",
+        headers:{
+            "Accept":"application/json"
+        }
+    });
+
+    const text = await response.text();
 
     let data;
 
     try{
-        data = await response.json();
+        data = JSON.parse(text);
     }catch(error){
-        throw new Error("API returned an invalid response.");
-    }
-
-    if(!response.ok){
         throw new Error(
-            data.message ||
-            data.error ||
-            "Player not found. Check UID and server."
+            "PHP proxy থেকে সঠিক response পাওয়া যায়নি।"
         );
     }
 
-    if(!data.basicinfo && !data.data){
+    if(!response.ok || data.success === false){
         throw new Error(
             data.message ||
-            "Player data was not found."
+            "Player data পাওয়া যায়নি।"
         );
     }
 
-    return data;
-}
-
-async function fetchStats(uid, server, gamemode, matchmode){
-    const url =
-        BASE_URL +
-        "/api/" +
-        API_VERSION +
-        "/player-stats?uid=" +
-        encodeURIComponent(uid) +
-        "&server=" +
-        encodeURIComponent(server) +
-        "&gamemode=" +
-        encodeURIComponent(gamemode) +
-        "&matchmode=" +
-        encodeURIComponent(matchmode);
-
-    const response = await fetch(url);
-
-    if(!response.ok){
-        return {};
+    if(!data.basicinfo){
+        throw new Error(
+            data.message ||
+            "এই UID-এর profile data পাওয়া যায়নি।"
+        );
     }
 
-    try{
-        return await response.json();
-    }catch(error){
-        return {};
-    }
+    return data.basicinfo;
 }
 
-function renderProfile(profile){
-    const basic = profile.basicinfo || profile.data?.basicinfo || profile;
-
-    const name = getValue(
-        basic.nickname ||
-        basic.nickName ||
-        basic.name,
+function renderPlayer(player){
+    const name = valueOrDash(
+        player.nickname ||
+        player.nickName ||
+        player.name,
         "Unknown Player"
     );
 
-    const uid = getValue(
-        basic.accountid ||
-        basic.accountId ||
-        basic.uid,
-        "-"
+    const uid = valueOrDash(
+        player.accountid ||
+        player.accountId ||
+        player.uid
     );
 
-    const region = getValue(
-        basic.region,
+    const region = valueOrDash(
+        player.region,
         serverInput.value
     );
 
-    const level = getValue(
-        basic.level,
-        "-"
-    );
+    const level = valueOrDash(player.level);
 
     document.getElementById("avatar").textContent =
-        name.charAt(0).toUpperCase();
+        String(name).charAt(0).toUpperCase();
 
     setText("playerName", name);
     setText("playerUID", uid);
+    setText("level", formatNumber(level));
+    setText("likes", formatNumber(player.liked));
+    setText("brRank", rankName(player.rank));
+    setText("csRank", rankName(player.csrank));
+    setText("brPoints", formatNumber(player.rankingpoints));
+    setText("csPoints", formatNumber(player.csrankingpoints));
+    setText("badgesCount", formatNumber(player.badgecnt));
+    setText("title", player.title);
+    setText("createdAt", formatDate(player.createat));
+    setText("lastLogin", formatDate(player.lastloginat));
+    setText("maxBRRank", rankName(player.maxrank));
+    setText("maxCSRank", rankName(player.csmaxrank));
 
     document.getElementById("regionBadge").textContent =
         "Region: " + region;
 
     document.getElementById("levelBadge").textContent =
         "Level: " + level;
-
-    setText("level", formatNumber(level));
-    setText("likes", formatNumber(basic.liked));
-    setText("brRank", getRankName(basic.rank));
-    setText("csRank", getRankName(basic.csrank));
-
-    setText(
-        "brPoints",
-        formatNumber(basic.rankingpoints)
-    );
-
-    setText(
-        "csPoints",
-        formatNumber(basic.csrankingpoints)
-    );
-
-    setText(
-        "badgesCount",
-        formatNumber(basic.badgecnt)
-    );
-
-    setText(
-        "title",
-        basic.title
-    );
-
-    setText(
-        "createdAt",
-        formatDate(basic.createat)
-    );
-
-    setText(
-        "lastLogin",
-        formatDate(basic.lastloginat)
-    );
-
-    setText(
-        "maxBRRank",
-        getRankName(basic.maxrank)
-    );
-
-    setText(
-        "maxCSRank",
-        getRankName(basic.csmaxrank)
-    );
-}
-
-function renderStats(stats, mode){
-    const data = stats.data || stats;
-    const stat = getStatsObject(data, mode);
-
-    const games = stat.gamesPlayed ||
-        stat.gamesplayed ||
-        stat.games ||
-        0;
-
-    const wins = stat.wins ||
-        stat.win ||
-        0;
-
-    const kills = stat.kills ||
-        stat.kill ||
-        0;
-
-    if(mode === "br"){
-        setText("brGames", formatNumber(games));
-        setText("brWins", formatNumber(wins));
-        setText("brKills", formatNumber(kills));
-    }else{
-        setText("csGames", formatNumber(games));
-        setText("csWins", formatNumber(wins));
-        setText("csKills", formatNumber(kills));
-    }
 }
 
 searchForm.addEventListener("submit", async function(event){
@@ -1071,16 +878,22 @@ searchForm.addEventListener("submit", async function(event){
     const server = serverInput.value;
 
     if(!/^[0-9]+$/.test(uid)){
-        showMessage("Please enter a valid numeric Free Fire UID.");
+        showMessage(
+            "শুধু সংখ্যার UID লিখো।",
+            "error"
+        );
         return;
     }
 
     if(uid.length < 5){
-        showMessage("UID is too short. Please check your UID.");
+        showMessage(
+            "UID সঠিক নয়। UID আবার চেক করো।",
+            "error"
+        );
         return;
     }
 
-    hideMessage();
+    clearMessage();
     clearResults();
 
     loading.style.display = "block";
@@ -1088,31 +901,14 @@ searchForm.addEventListener("submit", async function(event){
     searchBtn.textContent = "SEARCHING...";
 
     try{
-        const profile = await fetchProfile(uid, server);
+        const player = await getPlayer(uid, server);
 
-        renderProfile(profile);
-
-        const brStats = await fetchStats(
-            uid,
-            server,
-            "br",
-            "CAREER"
-        );
-
-        const csStats = await fetchStats(
-            uid,
-            server,
-            "cs",
-            "CAREER"
-        );
-
-        renderStats(brStats, "br");
-        renderStats(csStats, "cs");
+        renderPlayer(player);
 
         results.style.display = "block";
 
         showMessage(
-            "Player profile loaded successfully.",
+            "Player profile successfully loaded.",
             "success"
         );
 
@@ -1122,11 +918,10 @@ searchForm.addEventListener("submit", async function(event){
         });
 
     }catch(error){
-        clearResults();
-
         showMessage(
             error.message ||
-            "Something went wrong. Please try again later."
+            "API server-এর সাথে যোগাযোগ করা যাচ্ছে না।",
+            "error"
         );
 
     }finally{
