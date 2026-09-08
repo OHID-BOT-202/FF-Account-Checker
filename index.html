@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Ohid AI</title>
+<title>FB Video Downloader</title>
 
 <style>
 *{
@@ -16,8 +16,12 @@
 body{
     min-height:100vh;
     background:#050505;
-    color:white;
-    font-family:Arial, sans-serif;
+    color:#fff;
+    font-family:Arial,sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:18px;
     overflow-x:hidden;
 }
 
@@ -25,181 +29,204 @@ body{
 body::before{
     content:"";
     position:fixed;
-    inset:-50%;
-    background:
-      conic-gradient(
-        #ff0000,
-        #ff00ff,
-        #0000ff,
-        #00ffff,
-        #00ff00,
+    width:450px;
+    height:450px;
+    background:conic-gradient(
+        #ff0055,
+        #7b00ff,
+        #00d9ff,
+        #00ff88,
         #ffff00,
-        #ff0000
-      );
+        #ff0055
+    );
+    filter:blur(130px);
+    opacity:.16;
     animation:rotate 8s linear infinite;
-    filter:blur(100px);
-    opacity:.18;
     z-index:-1;
 }
 
 @keyframes rotate{
-    from{transform:rotate(0deg);}
-    to{transform:rotate(360deg);}
-}
-
-/* Header */
-header{
-    width:100%;
-    padding:20px;
-    text-align:center;
-    border-bottom:1px solid rgba(255,255,255,.15);
-    background:rgba(0,0,0,.55);
-    backdrop-filter:blur(15px);
-}
-
-.logo{
-    font-size:28px;
-    font-weight:bold;
-    letter-spacing:3px;
-    animation:rgbText 3s linear infinite;
-}
-
-@keyframes rgbText{
-    0%{color:#ff0000;text-shadow:0 0 15px #ff0000;}
-    33%{color:#00ffff;text-shadow:0 0 15px #00ffff;}
-    66%{color:#ff00ff;text-shadow:0 0 15px #ff00ff;}
-    100%{color:#ff0000;text-shadow:0 0 15px #ff0000;}
-}
-
-/* Main */
-.container{
-    width:92%;
-    max-width:650px;
-    margin:50px auto;
+    from{
+        transform:rotate(0deg);
+    }
+    to{
+        transform:rotate(360deg);
+    }
 }
 
 .card{
+    width:100%;
+    max-width:520px;
     padding:30px 20px;
     border-radius:25px;
-    background:rgba(10,10,10,.75);
-    border:1px solid rgba(255,255,255,.18);
+    background:rgba(12,12,12,.92);
+    border:1px solid #292929;
+    box-shadow:0 0 35px rgba(0,0,0,.8);
     backdrop-filter:blur(18px);
-    box-shadow:0 0 30px rgba(0,255,255,.12);
+}
+
+.logo{
     text-align:center;
-}
-
-.card h1{
-    font-size:34px;
+    font-size:25px;
+    font-weight:bold;
+    letter-spacing:2px;
     margin-bottom:10px;
+
+    background:linear-gradient(
+        90deg,
+        #ff0055,
+        #7b00ff,
+        #00d9ff,
+        #00ff88
+    );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
 }
 
-.card p{
-    color:#aaa;
+.subtitle{
+    text-align:center;
+    color:#999;
+    font-size:14px;
+    line-height:1.5;
     margin-bottom:25px;
 }
 
-/* Input */
+.input-box{
+    position:relative;
+}
+
 input{
     width:100%;
-    padding:16px;
-    border-radius:12px;
+    padding:17px 45px 17px 16px;
+    border-radius:13px;
     border:1px solid #333;
+    background:#0b0b0b;
+    color:#fff;
     outline:none;
-    background:#111;
-    color:white;
-    font-size:16px;
-    margin-bottom:15px;
+    font-size:15px;
 }
 
 input:focus{
-    border-color:#00ffff;
-    box-shadow:0 0 15px rgba(0,255,255,.3);
+    border-color:#00d9ff;
+    box-shadow:0 0 15px rgba(0,217,255,.18);
 }
 
-/* Button */
+.clear{
+    position:absolute;
+    right:14px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#777;
+    font-size:22px;
+    cursor:pointer;
+}
+
 button{
     width:100%;
+    margin-top:15px;
     padding:16px;
-    border:none;
-    border-radius:12px;
-    color:white;
+    border:0;
+    border-radius:13px;
+
     background:linear-gradient(
         90deg,
-        #ff004c,
+        #ff0055,
         #7b00ff,
-        #00c8ff
+        #00d9ff
     );
+
+    color:#fff;
     font-size:17px;
     font-weight:bold;
     cursor:pointer;
-    transition:.3s;
+    transition:.25s;
 }
 
 button:hover{
     transform:translateY(-2px);
-    box-shadow:0 0 25px rgba(0,255,255,.4);
+    box-shadow:0 0 25px rgba(0,217,255,.25);
 }
 
-#result{
-    margin-top:20px;
-    padding:15px;
-    border-radius:12px;
-    background:#0d0d0d;
-    border:1px solid #222;
+button:disabled{
+    opacity:.6;
+    cursor:not-allowed;
+    transform:none;
+}
+
+.status{
     display:none;
+    margin-top:20px;
+    padding:16px;
+    border-radius:13px;
+    background:#101010;
+    border:1px solid #292929;
+    text-align:center;
+    color:#bbb;
+    line-height:1.6;
 }
 
-/* Feature cards */
-.features{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:12px;
+.result-title{
+    color:#00d9ff;
+    font-size:18px;
+    font-weight:bold;
+    margin-bottom:12px;
+}
+
+.download-btn{
+    display:block;
+    margin-top:12px;
+    padding:13px;
+    border-radius:10px;
+    background:#00b894;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+}
+
+.download-btn:hover{
+    background:#00a383;
+}
+
+.info{
+    margin-top:18px;
+    padding:13px;
+    border-radius:12px;
+    background:rgba(255,255,255,.04);
+    color:#777;
+    font-size:12px;
+    text-align:center;
+    line-height:1.5;
+}
+
+.footer{
+    text-align:center;
+    color:#555;
+    font-size:11px;
     margin-top:20px;
 }
 
-.feature{
-    padding:18px 8px;
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.1);
-    border-radius:15px;
-    text-align:center;
-}
-
-.feature span{
-    display:block;
-    font-size:25px;
-    margin-bottom:7px;
-}
-
-.feature small{
-    color:#aaa;
-}
-
-/* Mobile */
 @media(max-width:500px){
 
-    .container{
-        margin:30px auto;
+    body{
+        padding:15px;
     }
 
     .card{
         padding:25px 16px;
     }
 
-    .card h1{
-        font-size:28px;
-    }
-
-    .features{
-        grid-template-columns:1fr;
-    }
-
-    .feature{
-        padding:15px;
-    }
-
     .logo{
-        font-size:23px;
+        font-size:21px;
+    }
+
+    input{
+        font-size:16px;
+    }
+
+    button{
+        font-size:16px;
     }
 }
 </style>
@@ -207,73 +234,327 @@ button:hover{
 
 <body>
 
-<header>
-    <div class="logo">⚡ OHID AI</div>
-</header>
+<div class="card">
 
-<div class="container">
+    <div class="logo">
+        📥 FB VIDEO DOWNLOADER
+    </div>
 
-    <div class="card">
+    <div class="subtitle">
+        Paste a public Facebook video link
+        and download the available video.
+    </div>
 
-        <h1>Welcome 👋</h1>
-
-        <p>
-            Mobile Friendly RGB Website
-        </p>
+    <div class="input-box">
 
         <input
-            type="text"
-            id="name"
-            placeholder="Enter your name"
+            type="url"
+            id="videoUrl"
+            placeholder="Paste Facebook video URL..."
+            autocomplete="off"
         >
 
-        <button onclick="showMessage()">
-            🚀 Continue
-        </button>
-
-        <div id="result"></div>
+        <span
+            class="clear"
+            onclick="clearInput()"
+        >×</span>
 
     </div>
 
-    <div class="features">
+    <button
+        id="downloadButton"
+        onclick="downloadVideo()"
+    >
+        🚀 Download Video
+    </button>
 
-        <div class="feature">
-            <span>📱</span>
-            <small>Mobile Friendly</small>
-        </div>
+    <div
+        class="status"
+        id="status"
+    ></div>
 
-        <div class="feature">
-            <span>🌈</span>
-            <small>RGB Design</small>
-        </div>
+    <div class="info">
+        ⚠️ Use only videos you have permission to download.
+    </div>
 
-        <div class="feature">
-            <span>⚡</span>
-            <small>Fast UI</small>
-        </div>
-
+    <div class="footer">
+        © 2026 FB Video Downloader
     </div>
 
 </div>
 
+
 <script>
-function showMessage(){
 
-    const name = document.getElementById("name").value.trim();
-    const result = document.getElementById("result");
+/* =========================================
+   GETVIDFB API
+========================================= */
 
-    if(name === ""){
-        result.style.display = "block";
-        result.innerHTML = "⚠️ Please enter your name.";
+const API_URL =
+    "https://getvidfb.com/api/v1/video-info";
+
+
+/*
+   তোমার GetVidFB API key এখানে বসাও
+*/
+const API_KEY =
+    "gvfb_eb940b21a7cfb2cf25d89e0e07b63a12ee85d72ebc8e4ecc";
+
+
+/* =========================================
+   DOWNLOAD
+========================================= */
+
+async function downloadVideo(){
+
+    const videoUrl =
+        document.getElementById("videoUrl")
+        .value.trim();
+
+    const button =
+        document.getElementById("downloadButton");
+
+    const status =
+        document.getElementById("status");
+
+
+    if(!videoUrl){
+
+        showStatus(
+            "⚠️ Please paste a Facebook video URL."
+        );
+
         return;
     }
 
-    result.style.display = "block";
-    result.innerHTML =
-        "🔥 Welcome, <b>" +
-        name +
-        "</b>!<br><br>You're inside Ohid AI.";
+
+    if(
+        !videoUrl.includes("facebook.com") &&
+        !videoUrl.includes("fb.watch")
+    ){
+
+        showStatus(
+            "❌ Please enter a valid Facebook video URL."
+        );
+
+        return;
+    }
+
+
+    if(API_KEY === "YOUR_API_KEY_HERE"){
+
+        showStatus(
+            "⚠️ Please add your GetVidFB API key first."
+        );
+
+        return;
+    }
+
+
+    button.disabled = true;
+    button.innerHTML = "⏳ Processing...";
+
+    status.style.display = "block";
+    status.innerHTML = "⏳ Connecting to GetVidFB...";
+
+
+    try{
+
+        const response = await fetch(
+            API_URL,
+            {
+                method:"POST",
+
+                headers:{
+                    "Content-Type":"application/json",
+                    "X-API-Key":API_KEY
+                },
+
+                body:JSON.stringify({
+                    url:videoUrl
+                })
+            }
+        );
+
+
+        const data =
+            await response.json();
+
+
+        console.log(
+            "GetVidFB response:",
+            data
+        );
+
+
+        if(!response.ok){
+
+            throw new Error(
+                data.message ||
+                data.error ||
+                "API request failed"
+            );
+        }
+
+
+        /*
+        Try common response fields
+        */
+
+        const video =
+            data.download_url ||
+            data.downloadUrl ||
+            data.video_url ||
+            data.videoUrl ||
+            data.url;
+
+
+        const hd =
+            data.hd_url ||
+            data.hdUrl ||
+            data.high_quality ||
+            data.highQuality;
+
+
+        if(video || hd){
+
+            let html =
+                '<div class="result-title">✅ Video Ready</div>';
+
+
+            if(hd){
+
+                html += `
+                    <a
+                        class="download-btn"
+                        href="${safeURL(hd)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                    >
+                        ⬇️ Download HD
+                    </a>
+                `;
+            }
+
+
+            if(video){
+
+                html += `
+                    <a
+                        class="download-btn"
+                        href="${safeURL(video)}"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        download
+                    >
+                        ⬇️ Download Video
+                    </a>
+                `;
+            }
+
+
+            status.innerHTML = html;
+
+        }else{
+
+            status.innerHTML = `
+                ⚠️ API response received,
+                but no downloadable URL was found.
+                <br><br>
+                <small>
+                    Check the browser console for the API response.
+                </small>
+            `;
+
+        }
+
+    }catch(error){
+
+        console.error(error);
+
+        status.innerHTML =
+            "❌ API request failed.<br><br>" +
+            escapeHTML(error.message);
+
+    }finally{
+
+        button.disabled = false;
+        button.innerHTML = "🚀 Download Video";
+
+    }
+
 }
+
+
+/* =========================================
+   STATUS
+========================================= */
+
+function showStatus(message){
+
+    const status =
+        document.getElementById("status");
+
+    status.style.display = "block";
+    status.innerHTML = message;
+
+}
+
+
+/* =========================================
+   CLEAR
+========================================= */
+
+function clearInput(){
+
+    document.getElementById("videoUrl")
+        .value = "";
+
+    document.getElementById("status")
+        .style.display = "none";
+
+}
+
+
+/* =========================================
+   URL SAFETY
+========================================= */
+
+function safeURL(value){
+
+    try{
+
+        const url =
+            new URL(value);
+
+        if(
+            url.protocol === "https:" ||
+            url.protocol === "http:"
+        ){
+            return url.href;
+        }
+
+    }catch(e){}
+
+    return "#";
+}
+
+
+/* =========================================
+   HTML ESCAPE
+========================================= */
+
+function escapeHTML(text){
+
+    return String(text)
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+}
+
 </script>
 
 </body>
