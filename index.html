@@ -3,7 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
 <title>Ohid AI - Free Fire UID Checker</title>
 
 <style>
@@ -13,114 +12,142 @@ body{
     margin:0;
     min-height:100vh;
     font-family:Arial,sans-serif;
-    background:#050505;
-    color:white;
+    color:#fff;
     display:flex;
     justify-content:center;
     align-items:center;
+    padding:20px;
+    background:#050505;
     overflow-x:hidden;
 }
 
-body::before{
+body:before{
     content:"";
     position:fixed;
-    inset:-50%;
-    background:conic-gradient(
-        #ff0000,
-        #ff00ff,
-        #0000ff,
-        #00ffff,
-        #00ff00,
-        #ffff00,
-        #ff0000
-    );
-    animation:rgb 5s linear infinite;
-    filter:blur(80px);
-    opacity:.35;
+    width:100%;
+    height:100%;
+    inset:0;
+    background:
+      radial-gradient(circle at 20% 20%,#ff005555,transparent 35%),
+      radial-gradient(circle at 80% 30%,#00ffff55,transparent 35%),
+      radial-gradient(circle at 50% 90%,#8a00ff55,transparent 35%);
+    filter:blur(25px);
+    animation:bg 5s linear infinite alternate;
     z-index:-1;
 }
 
-@keyframes rgb{
-    to{transform:rotate(360deg)}
+@keyframes bg{
+    from{transform:scale(1)}
+    to{transform:scale(1.15)}
 }
 
-.container{
-    width:94%;
+.box{
+    width:100%;
     max-width:520px;
     padding:25px;
-    border:2px solid transparent;
     border-radius:25px;
-    background:
-        linear-gradient(#090909,#090909) padding-box,
-        linear-gradient(90deg,#ff0000,#00ffff,#ff00ff,#00ff00,#ff0000) border-box;
-    box-shadow:0 0 35px #00ffff55;
+    background:#080808ee;
+    border:2px solid transparent;
+    background-clip:padding-box;
+    position:relative;
+    box-shadow:0 0 35px #00ffff33;
+}
+
+.box:before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:27px;
+    background:linear-gradient(
+      90deg,
+      #ff0000,
+      #ff00ff,
+      #0000ff,
+      #00ffff,
+      #00ff00,
+      #ffff00,
+      #ff0000
+    );
+    z-index:-1;
+    background-size:400%;
+    animation:borderRGB 4s linear infinite;
+}
+
+@keyframes borderRGB{
+    0%{background-position:0%}
+    100%{background-position:400%}
 }
 
 .logo{
     text-align:center;
     font-size:30px;
-    font-weight:bold;
+    font-weight:900;
     margin-bottom:5px;
 }
 
-.subtitle{
+.sub{
     text-align:center;
-    color:#aaa;
+    color:#999;
     margin-bottom:25px;
 }
 
 input,select{
     width:100%;
     padding:15px;
-    margin:8px 0;
+    margin-bottom:12px;
     border-radius:12px;
-    border:1px solid #444;
+    border:1px solid #333;
     outline:none;
     background:#111;
-    color:white;
+    color:#fff;
     font-size:16px;
 }
 
 button{
     width:100%;
     padding:15px;
-    margin-top:10px;
     border:0;
     border-radius:12px;
     color:white;
     font-size:17px;
     font-weight:bold;
     cursor:pointer;
-    background:linear-gradient(90deg,#ff0055,#7b00ff,#00d9ff);
+    background:linear-gradient(
+      90deg,
+      #ff0055,
+      #7b00ff,
+      #00c8ff
+    );
 }
 
 button:disabled{
     opacity:.6;
+    cursor:not-allowed;
 }
 
-.status{
+#status{
     text-align:center;
-    margin:18px 0;
-    color:#00ffff;
+    min-height:25px;
+    margin:18px 0 5px;
 }
 
 .card{
-    margin-top:18px;
-    padding:20px;
-    border-radius:18px;
-    background:#111;
-    border:1px solid #333;
     display:none;
+    margin-top:18px;
+    padding:18px;
+    border-radius:18px;
+    background:#101010;
+    border:1px solid #333;
 }
 
-.name{
+.nickname{
     text-align:center;
     font-size:25px;
     font-weight:bold;
     margin-bottom:18px;
 }
 
-.info{
+.grid{
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:10px;
@@ -134,40 +161,48 @@ button:disabled{
 }
 
 .label{
-    color:#888;
     font-size:12px;
+    color:#888;
 }
 
 .value{
     margin-top:5px;
     font-size:17px;
     font-weight:bold;
+    word-break:break-word;
 }
 
 .error{
     color:#ff5555;
-    text-align:center;
+}
+
+.success{
+    color:#00ff88;
 }
 
 .footer{
     text-align:center;
+    color:#666;
+    font-size:11px;
     margin-top:20px;
-    color:#777;
-    font-size:12px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="box">
 
     <div class="logo">🔥 OHID AI</div>
-    <div class="subtitle">Free Fire UID Checker</div>
+
+    <div class="sub">
+        Free Fire Player Info
+    </div>
 
     <input
         id="uid"
-        type="number"
+        type="text"
+        inputmode="numeric"
         placeholder="Enter Free Fire UID"
     >
 
@@ -182,17 +217,19 @@ button:disabled{
         <option value="US">🇺🇸 North America</option>
     </select>
 
-    <button id="searchBtn" onclick="getPlayer()">
+    <button id="searchBtn" onclick="searchPlayer()">
         🔍 Search Player
     </button>
 
-    <div id="status" class="status"></div>
+    <div id="status"></div>
 
     <div id="card" class="card">
 
-        <div id="nickname" class="name">Player</div>
+        <div id="nickname" class="nickname">
+            Unknown Player
+        </div>
 
-        <div class="info">
+        <div class="grid">
 
             <div class="item">
                 <div class="label">UID</div>
@@ -245,90 +282,127 @@ button:disabled{
 
 <script>
 
-async function getPlayer(){
+async function searchPlayer(){
 
-    const uid = document.getElementById("uid").value.trim();
-    const server = document.getElementById("server").value;
+    const uid = document
+        .getElementById("uid")
+        .value
+        .trim();
 
-    const status = document.getElementById("status");
-    const card = document.getElementById("card");
-    const button = document.getElementById("searchBtn");
+    const server = document
+        .getElementById("server")
+        .value;
+
+    const status =
+        document.getElementById("status");
+
+    const card =
+        document.getElementById("card");
+
+    const button =
+        document.getElementById("searchBtn");
+
+    card.style.display = "none";
 
     if(!uid){
+
         status.innerHTML =
-            '<span class="error">⚠️ Please enter a UID</span>';
-        card.style.display = "none";
+            '<span class="error">⚠️ Enter a UID</span>';
+
         return;
     }
 
     if(!/^[0-9]+$/.test(uid)){
+
         status.innerHTML =
             '<span class="error">⚠️ UID must contain numbers only</span>';
+
         return;
     }
 
     button.disabled = true;
     button.innerText = "⏳ Searching...";
     status.innerText = "Loading player information...";
-    card.style.display = "none";
 
     try{
 
-        const url =
-        `https://freefireinfo-zy9l.onrender.com/api/v1/player-profile?uid=${encodeURIComponent(uid)}&server=${encodeURIComponent(server)}`;
-
-        const response = await fetch(url);
+        const response = await fetch(
+            "api.php?uid=" +
+            encodeURIComponent(uid) +
+            "&server=" +
+            encodeURIComponent(server)
+        );
 
         const data = await response.json();
 
-        if(!response.ok){
+        if(!response.ok || data.error){
+
             throw new Error(
-                data.message || "Player not found"
+                data.error || "Player not found"
             );
         }
 
-        const info = data.basicinfo || {};
+        const info =
+            data.basicinfo ||
+            data.basicInfo ||
+            data.player ||
+            data;
 
-        document.getElementById("nickname").innerText =
-            info.nickname || "Unknown Player";
+        document.getElementById("nickname").textContent =
+            info.nickname ||
+            info.name ||
+            "Unknown Player";
 
-        document.getElementById("uidValue").innerText =
-            info.accountid || uid;
+        document.getElementById("uidValue").textContent =
+            info.accountid ||
+            info.accountId ||
+            uid;
 
-        document.getElementById("level").innerText =
+        document.getElementById("level").textContent =
             info.level ?? "-";
 
-        document.getElementById("region").innerText =
-            info.region || server;
+        document.getElementById("region").textContent =
+            info.region ||
+            server;
 
-        document.getElementById("likes").innerText =
-            info.liked ?? "-";
+        document.getElementById("likes").textContent =
+            info.liked ??
+            info.likes ??
+            "-";
 
-        document.getElementById("rank").innerText =
-            info.rank ?? "-";
+        document.getElementById("rank").textContent =
+            info.rank ??
+            info.brRank ??
+            "-";
 
-        document.getElementById("csrank").innerText =
-            info.csrank ?? "-";
+        document.getElementById("csrank").textContent =
+            info.csrank ??
+            info.csRank ??
+            "-";
 
-        document.getElementById("points").innerText =
-            info.rankingpoints ?? "-";
+        document.getElementById("points").textContent =
+            info.rankingpoints ??
+            info.rankingPoints ??
+            "-";
 
-        document.getElementById("maxrank").innerText =
-            info.maxrank ?? "-";
-
-        status.innerHTML =
-            '<span style="color:#00ff88">✅ Player Found</span>';
+        document.getElementById("maxrank").textContent =
+            info.maxrank ??
+            info.maxRank ??
+            "-";
 
         card.style.display = "block";
+
+        status.innerHTML =
+            '<span class="success">✅ Player Found</span>';
 
     }catch(error){
 
         console.error(error);
 
         status.innerHTML =
-            `<span class="error">❌ ${escapeHtml(error.message || "API Error")}</span>`;
-
-        card.style.display = "none";
+            '<span class="error">❌ ' +
+            escapeHTML(error.message) +
+            '</span>';
 
     }finally{
 
@@ -338,12 +412,13 @@ async function getPlayer(){
     }
 }
 
-function escapeHtml(text){
+function escapeHTML(text){
 
     const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
 
+    div.textContent = text;
+
+    return div.innerHTML;
 }
 
 </script>
