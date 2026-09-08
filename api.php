@@ -1,93 +1,128 @@
 <?php
+
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, OPTIONS");
-header("Access-Control-Allow-Headers: Content-Type");
 
-if ($_SERVER["REQUEST_METHOD"] === "OPTIONS") {
-    http_response_code(200);
-    exit;
-}
+if ($_SERVER["REQUEST_METHOD"] !== "GET") {
+    http_response_code(405);
 
-$uid = isset($_GET["uid"]) ? trim($_GET["uid"]) : "";
-$server = isset($_GET["server"]) ? strtoupper(trim($_GET["server"])) : "BD";
-
-if (!preg_match("/^[0-9]{5,20}$/", $uid)) {
-    http_response_code(400);
     echo json_encode([
-        "success" => false,
-        "message" => "Invalid UID"
+        "error" => "Only GET requests are allowed"
     ]);
+
     exit;
 }
 
-$allowedServers = [
-    "IND", "SG", "RU", "ID", "TW", "US",
-    "VN", "TH", "ME", "PK", "CIS", "BR", "BD"
-];
+$uid = isset($_GET["uid"])
+    ? trim($_GET["uid"])
+    : "";
 
-if (!in_array($server, $allowedServers, true)) {
-    $server = "BD";
+$server = isset($_GET["server"])
+    ? trim($_GET["server"])
+    : "BD";
+
+if ($uid === "") {
+
+    http_response_code(400);
+
+    echo json_encode([
+        "error" => "UID is required"
+    ]);
+
+    exit;
 }
+
+if (!preg_match('/^[0-9]+$/', $uid)) {
+
+    http_response_code(400);
+
+    echo json_encode([
+        "error" => "Invalid UID"
+    ]);
+
+    exit;
+}
+
+/*
+ * Free Fire unofficial API
+ */
 
 $apiUrl =
-    "https://freefireinfo-zy9l.onrender.com/api/v1/player-profile" .
-    "?uid=" . urlencode($uid) .
-    "&server=" . urlencode($server);
+    "https://freefireinfo-zy9l.onrender.com/api/v1/player-profile"
+    . "?uid=" . urlencode($uid)
+    . "&server=" . urlencode($server);
 
 $ch = curl_init();
 
 curl_setopt_array($ch, [
+
     CURLOPT_URL => $apiUrl,
+
     CURLOPT_RETURNTRANSFER => true,
+
     CURLOPT_FOLLOWLOCATION => true,
+
     CURLOPT_CONNECTTIMEOUT => 15,
+
     CURLOPT_TIMEOUT => 30,
-    CURLOPT_SSL_VERIFYPEER => true,
+
     CURLOPT_HTTPHEADER => [
         "Accept: application/json",
-        "User-Agent: Ohid-AI-UID-Checker/1.0"
+        "User-Agent: Mozilla/5.0"
     ]
+
 ]);
 
-$response = curl_exec($ch);
-$error = curl_error($ch);
-$status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+$result = curl_exec($ch);
+
+$httpCode = curl_getinfo(
+    $ch,
+    CURLINFO_HTTP_CODE
+);
+
+$curlError = curl_error($ch);
 
 curl_close($ch);
 
-if ($response === false || $error) {
+if ($result === false || $curlError) {
+
     http_response_code(502);
 
     echo json_encode([
-        "success" => false,
-        "message" => "API server unreachable",
-        "details" => $error
+        "error" => "Unable to connect to Free Fire API",
+        "details" => $curlError
     ]);
+
     exit;
 }
 
-if ($status < 200 || $status >= 300) {
-    http_response_code($status ?: 502);
+if ($httpCode < 200 || $httpCode >= 300) {
+
+    http_response_code($httpCode ?: 502);
 
     echo json_encode([
-        "success" => false,
-        "message" => "API returned HTTP status " . $status
+        "error" => "Free Fire API returned HTTP " . $httpCode
     ]);
+
     exit;
 }
 
-$data = json_decode($response, true);
+$data = json_decode($result, true);
 
-if (!is_array($data)) {
+if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+
     http_response_code(502);
 
     echo json_encode([
-        "success" => false,
-        "message" => "Invalid API response"
+        "error" => "Invalid response from Free Fire API"
     ]);
+
     exit;
 }
 
-echo json_encode($data, JSON_UNESCAPED_UNICODE);
+echo json_encode(
+    $data,
+    JSON_UNESCAPED_UNICODE |
+    JSON_UNESCAPED_SLASHES
+);
 ?>
